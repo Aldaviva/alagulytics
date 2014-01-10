@@ -67,13 +67,15 @@ function renderStepsGraph(){
 				}, 1);
 
 			_.each(events, function(event){
-				var eventEl = $('<div>').css({
-					right: (event.time - startTime)/(endTime - startTime)*graphWidth,
-					width: 10,
-					height: event.value / maxValue * graphHeight
-				});
+				if(event.value > 0){
+					var eventEl = $('<div>').css({
+						right: (event.time - startTime)/(endTime - startTime)*graphWidth,
+						width: 10,
+						height: event.value / maxValue * graphHeight
+					});
 
-				graphEl.append(eventEl);
+					graphEl.append(eventEl);
+				}
 			});
 		});
 }
