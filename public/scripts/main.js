@@ -94,5 +94,5 @@ function renderActivityGraph(){
 }
 
 function getDateFilter(){
-	return 'startDate='+startDate+'&endTime='+endTime;
+	return 'startTime='+startTime+'&endTime='+endTime;
 }
