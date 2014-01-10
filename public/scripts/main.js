@@ -57,7 +57,7 @@ function renderCalories(){
 function renderStepsGraph(){
 	var graphEl = $('.stepsTaken .graph');
 	var graphWidth = graphEl.width();
-	
+
 	$.getJSON(API_ROOT+'/events/stepsTaken?sort=+time&'+getDateFilter())
 		.done(function(events){
 			var maxValue = _(events).pluck('value')
@@ -71,6 +71,8 @@ function renderStepsGraph(){
 					width: 10,
 					height: event.value / maxValue
 				});
+
+				graphEl.append(eventEl);
 			});
 		});
 }
