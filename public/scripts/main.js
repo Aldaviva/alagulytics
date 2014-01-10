@@ -47,8 +47,7 @@ function renderCalories(){
 				return event.value;
 			}).reduce(function(prev, curr){
 				return prev + curr;
-			}, 0)
-			.value();
+			}, 0);
 
 			var calories = totalSteps * CALORIES_PER_STEP;
 			caloriesValueEl.text(calories);
