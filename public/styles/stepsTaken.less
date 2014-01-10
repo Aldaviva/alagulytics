@@ -1,0 +1,41 @@
+.stepsTaken {
+	position: absolute;
+	left: @gutter;
+	top: 832px;
+	width: 1920px - (2 * @gutter);
+	height: 133px;
+
+	.graph {
+		background-color: fade(@orange, 20);
+		position: relative;
+		width: 1343px;
+		height: inherit;
+
+		div {
+			position: absolute;
+			bottom: 0;
+			background-color: @orange;
+		}
+	}
+
+	.legend {
+		position: absolute;
+		right: 0;
+		height: inherit;
+		top: 0;
+		width: 394px;
+
+		h1 {
+			color: black;
+			opacity: 0.80;
+			text-transform: uppercase;
+			font: bold 45px "Gotham Condensed";
+		}
+
+		.value {
+			color: @orange;
+			text-transform: capitalize;
+			font: 83px "Gotham";
+		}
+	}
+}

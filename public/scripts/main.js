@@ -43,11 +43,11 @@ function renderCalories(){
 	
 	$.getJSON(API_ROOT+'/events/stepsTaken?'+getDateFilter())
 		.done(function(events){
-			var totalSteps = _(events).map(function(event){
-				return event.value;
-			}).reduce(function(prev, curr){
+			var totalSteps = _(events).pluck('value').reduce(function(prev, curr){
 				return prev + curr;
 			}, 0);
+
+			$('.stepsTaken .legend .value').text(totalSteps);
 
 			var calories = Math.floor(totalSteps * CALORIES_PER_STEP);
 			caloriesValueEl.text(calories);
@@ -55,7 +55,22 @@ function renderCalories(){
 }
 
 function renderStepsGraph(){
+	var graphEl = $('.stepsTaken .graph');
+	$.getJSON(API_ROOT+'/events/stepsTaken?sort=+time&'+getDateFilter())
+		.done(function(events){
+			var maxValue = _(events).pluck('value')
+				.reduce(function(prev, curr){
+					return Math.max(prev, curr);
+				}, 1);
 
+			_.each(events, function(event){
+				var eventEl = $('<div>').css({
+					right: (event.time - startTime)/(endTime - startTime)*graphWidth,
+					width: 10,
+					height: event.value / maxValue
+				});
+			});
+		});
 }
 
 function renderActivityGraph(){
