@@ -38,7 +38,7 @@ function renderLocation(){
 }
 
 function renderCalories(){
-	var CALORIES_PER_STEP = 0.0475;
+	var CALORIES_PER_STEP = 0.0475*5;
 	var caloriesValueEl = $('.calories .value');
 	
 	$.getJSON(API_ROOT+'/events/stepsTaken?'+getDateFilter())
@@ -49,7 +49,7 @@ function renderCalories(){
 				return prev + curr;
 			}, 0);
 
-			var calories = totalSteps * CALORIES_PER_STEP;
+			var calories = Math.floor(totalSteps * CALORIES_PER_STEP);
 			caloriesValueEl.text(calories);
 		});
 }
@@ -69,19 +69,20 @@ function renderActivityGraph(){
 	};
 	var graphEl = $('.activityState .graph');
 	graphEl.empty();
+	var graphWidth = graphEl.width();
 
 	$.getJSON(API_ROOT+'/events/activityState?sort=+time&'+getDateFilter())
 		.done(function(events){
 			var previousEventEl = null;
 			_.each(events, function(event){
-				var pixelOffset = (event.time - startTime)/(endTime - startTime)*graphEl.width();
+				var pixelOffset = (event.time - startTime)/(endTime - startTime)*graphWidth;
 				var eventEl = $('<div>', { class: activityEnum[String(event.value)] }).css({
 					left: pixelOffset
 				});
 
 				if(previousEventEl){
 					previousEventEl.css({
-						right: pixelOffset
+						right: graphWidth - pixelOffset
 					});
 				}
 
