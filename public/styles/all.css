@@ -142,7 +142,7 @@ input:focus {
 }
 @font-face {
   font-family: "Gotham";
-  src: url('../fonts/gotham-medium-webfont.woff') format('woff');
+  src: url('../fonts/gothammedium-webfont.woff') format('woff');
 }
 @font-face {
   font-family: "Gotham";
@@ -229,6 +229,7 @@ header .isInOffice {
   top: 0;
   width: 450px;
   column-count: 2;
+  -webkit-column-count: 2;
 }
 .activityState .legend span {
   width: 47px;
