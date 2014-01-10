@@ -57,6 +57,7 @@ function renderCalories(){
 function renderStepsGraph(){
 	var graphEl = $('.stepsTaken .graph');
 	var graphWidth = graphEl.width();
+	var graphHeight = graphEl.height();
 
 	$.getJSON(API_ROOT+'/events/stepsTaken?sort=+time&'+getDateFilter())
 		.done(function(events){
@@ -69,7 +70,7 @@ function renderStepsGraph(){
 				var eventEl = $('<div>').css({
 					right: (event.time - startTime)/(endTime - startTime)*graphWidth,
 					width: 10,
-					height: event.value / maxValue
+					height: event.value / maxValue * graphHeight
 				});
 
 				graphEl.append(eventEl);
