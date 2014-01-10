@@ -73,6 +73,8 @@ function renderActivityGraph(){
 
 	$.getJSON(API_ROOT+'/events/activityState?sort=+time&'+getDateFilter())
 		.done(function(events){
+			events = _.sortBy(events, "time");
+
 			var previousEventEl = null;
 			_.each(events, function(event){
 				var pixelOffset = (event.time - startTime)/(endTime - startTime)*graphWidth;
