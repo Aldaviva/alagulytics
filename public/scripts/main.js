@@ -69,7 +69,7 @@ function renderStepsGraph(){
 			_.each(events, function(event){
 				if(event.value > 0){
 					var eventEl = $('<div>').css({
-						right: (event.time - startTime)/(endTime - startTime)*graphWidth,
+						left: (event.time - startTime)/(endTime - startTime)*graphWidth,
 						width: 10,
 						height: event.value / maxValue * graphHeight
 					});
