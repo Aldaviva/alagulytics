@@ -3,7 +3,7 @@ MOCHA := node_modules/mocha/bin/mocha
 NODE := node
 NPM := npm
 
-TEST_REPORTER := nyan
+TEST_REPORTER := spec
 
 all:
 

@@ -2,7 +2,7 @@ var mongo       = require('mongodb');
 var testConfig  = require('../config');
 var testCommons = require('../testCommons');
 
-// require('../../lib/common/logger')().level("warn");
+require('../../lib/common/logger')().level("warn");
 
 var config      = require('../../lib/common/config').init(testConfig);
 var app         = require('../..');
@@ -38,7 +38,7 @@ describe('Events API:', function(){
 		var myEvent = {
 			topic: 'activityState',
 			value: 0,
-			time: 1389312559118,
+			time: 1234567890000,
 			myCustomField: "foo"
 		};
 
@@ -67,18 +67,19 @@ describe('Events API:', function(){
 	});
 
 	describe("getEventsByTopic", function(){
+		var myEvents = [
+			{
+				topic : "stepsTaken",
+				value : 50,
+				time  : 1234567890001,
+			},{
+				topic : "stepsTaken",
+				value : 100,
+				time  : 1234567890005
+			}
+		];
 		before(function(done){
-			eventsCollection.insert([
-				{
-					topic : "stepsTaken",
-					value : 50,
-					time  : 1389312587342,
-				},{
-					topic : "stepsTaken",
-					value : 100,
-					time  : 1389312559119
-				}
-			], function(err){
+			eventsCollection.insert(myEvents, function(err){
 				done(err);
 			});
 		});
@@ -95,39 +96,40 @@ describe('Events API:', function(){
 					expect(body).to.be.instanceOf(Array);
 					expect(body).to.have.length(2);
 					expect(body).to.have.deep.property('[0].topic', 'stepsTaken');
+					expect(body).to.have.deep.property('[1].topic', 'stepsTaken');
 					done(err);
 				});
 			});
 
-			it("by startTime only", function(){
+			it("by startTime only", function(done){
 				request({
-					url: testCommons.baseUrl + '/events/stepsTaken?startTime=1389312559120',
+					url: testCommons.baseUrl + '/events/stepsTaken?startTime='+(myEvents[0].time+1),
 					json: true
 				}, function(err, res, body){
 					expect(err).to.be.null;
 					expect(res).to.have.property('statusCode', 200);
 					expect(body).to.have.length(1);
-					expect(body).to.have.deep.property('[0].time', 1389312587342);
+					expect(body).to.have.deep.property('[0].time', myEvents[1].time);
 					done(err);
 				});
 			});
 
-			it("by endTime only", function(){
+			it("by endTime only", function(done){
 				request({
-					url: testCommons.baseUrl + '/events/stepsTaken?endTime=1389312587341',
+					url: testCommons.baseUrl + '/events/stepsTaken?endTime='+(myEvents[1].time-1),
 					json: true
 				}, function(err, res, body){
 					expect(err).to.be.null;
 					expect(res).to.have.property('statusCode', 200);
 					expect(body).to.have.length(1);
-					expect(body).to.have.deep.property('[0].time', 1389312559119);
+					expect(body).to.have.deep.property('[0].time', myEvents[0].time);
 					done(err);
 				});
 			});
 
-			it("by startTime and endTime", function(){
+			it("by startTime and endTime", function(done){
 				request({
-					url: testCommons.baseUrl + '/events/stepsTaken?startTime=1389312559120&endTime=1389312559120',
+					url: testCommons.baseUrl + '/events/stepsTaken?startTime='+(myEvents[0].time+1)+'&endTime='+(myEvents[1].time-1),
 					json: true
 				}, function(err, res, body){
 					expect(err).to.be.null;
@@ -181,6 +183,21 @@ describe('Events API:', function(){
 					var expectedSmaller = body[1].value;
 					var expectedLarger = body[0].value;
 					expect(expectedSmaller).to.be.lessThan(expectedLarger);
+					done(err);
+				});
+			});
+		});
+
+		describe("limits", function(){
+			it("are respected", function(done){
+				var limit = 1;
+				request({
+					url: testCommons.baseUrl + '/events/stepsTaken?limit='+limit,
+					json: true
+				}, function(err, res, body){
+					expect(err).to.be.null;
+					expect(res).to.have.property('statusCode', 200);
+					expect(body).to.have.length(limit);
 					done(err);
 				});
 			});
