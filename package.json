@@ -13,5 +13,13 @@
 		"q"               : "0.9.7",
 		"restify"         : "2.6.1",
 		"socket.io"       : "0.9.16"
+	},
+	"devDependencies": {
+		"chai"            : "1.8.1",
+		"chai-fuzzy"      : "1.4.0",
+		"mocha"           : "1.8.2",
+		"request"         : "2.31.0",
+		"sinon"           : "1.6.0",
+		"sinon-mocha"     : "0.0.3"
 	}
 }
