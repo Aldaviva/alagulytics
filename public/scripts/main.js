@@ -1,4 +1,4 @@
-var startDate = 1389382351818; //11:30 am
+var startTime = 1389382351818; //11:30 am
 var endTime = +new Date();
 
 var API_ROOT = '/cgi-bin/';
