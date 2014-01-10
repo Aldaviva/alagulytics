@@ -1,0 +1,81 @@
+.activityState {
+	position: absolute;
+	left: @gutter;
+	top: 323px;
+	position: relative;
+	width: 1920px - (2 * @gutter);
+	height: 133px;
+
+	.graph {
+		position: relative;
+		width: 1343px;
+		height: inherit;
+
+		div {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+		}
+
+		.colorize(@color){
+			background-color: @color;
+		}
+
+		.applyColors();
+	}
+
+	.legend {
+		@swatch_size: 47px;
+
+		position: absolute;
+		right: 0;
+		height: inherit;
+		top: 0;
+		width: 450px;
+		column-count: 2;
+
+		span {
+			width: @swatch_size;
+			height: @swatch_size;
+			display: inline-block;
+		}
+
+		.colorize(@color){
+			span {
+				background-color: @color;
+			}
+		}
+
+		div {
+			text-indent: @swatch_size + 10px;
+			font: 42px "Gotham Condensed";
+			opacity: 0.80;
+		}
+
+		.stopped, .running {
+			margin-bottom: 30px;
+		}
+
+		.applyColors();
+		
+	}
+
+	.applyColors(){
+		.stopped {
+			.colorize(fade(@orange, 20));
+		}
+
+		.walking {
+			.colorize(fade(@orange, 40));
+		}
+
+		.running {
+			.colorize(fade(@orange, 80));
+		}
+
+		.driving {
+			.colorize(fade(@orange, 100));
+		}
+	}
+
+}

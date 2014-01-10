@@ -154,7 +154,7 @@ input:focus {
   src: url('../fonts/gothamultra-webfont.woff') format('woff');
 }
 header {
-  background: #ff4300;
+  background: #ff501a;
   text-transform: uppercase;
   font: bold 162px "Gotham";
   color: white;
@@ -171,7 +171,7 @@ header .isInOffice {
 .calories {
   position: absolute;
   top: 312px;
-  width: 960px;
+  width: 885px;
 }
 .location h1,
 .calories h1 {
@@ -182,7 +182,7 @@ header .isInOffice {
 }
 .location .value,
 .calories .value {
-  color: #ff4300;
+  color: #ff501a;
   text-transform: capitalize;
   font: 115px "Gotham";
 }
@@ -191,4 +191,68 @@ header .isInOffice {
 }
 .calories {
   left: 1027px;
+}
+.activityState {
+  position: absolute;
+  left: 67px;
+  top: 323px;
+  position: relative;
+  width: 1786px;
+  height: 133px;
+}
+.activityState .graph {
+  position: relative;
+  width: 1343px;
+  height: inherit;
+}
+.activityState .graph div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.activityState .graph .stopped {
+  background-color: rgba(255, 80, 26, 0.2);
+}
+.activityState .graph .walking {
+  background-color: rgba(255, 80, 26, 0.4);
+}
+.activityState .graph .running {
+  background-color: rgba(255, 80, 26, 0.8);
+}
+.activityState .graph .driving {
+  background-color: #ff501a;
+}
+.activityState .legend {
+  position: absolute;
+  right: 0;
+  height: inherit;
+  top: 0;
+  width: 450px;
+  column-count: 2;
+}
+.activityState .legend span {
+  width: 47px;
+  height: 47px;
+  display: inline-block;
+}
+.activityState .legend div {
+  text-indent: 57px;
+  font: 42px "Gotham Condensed";
+  opacity: 0.80;
+}
+.activityState .legend .stopped,
+.activityState .legend .running {
+  margin-bottom: 30px;
+}
+.activityState .legend .stopped span {
+  background-color: rgba(255, 80, 26, 0.2);
+}
+.activityState .legend .walking span {
+  background-color: rgba(255, 80, 26, 0.4);
+}
+.activityState .legend .running span {
+  background-color: rgba(255, 80, 26, 0.8);
+}
+.activityState .legend .driving span {
+  background-color: #ff501a;
 }
